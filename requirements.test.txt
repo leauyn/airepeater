@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+apscheduler
+pydantic-settings
+aiobotocore
+yt-dlp[default]
+

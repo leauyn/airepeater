@@ -1,0 +1,7 @@
+/test/data
+__pycache__/
+.env
+/logs
+*.swp
+*.pyc
+/temp
