@@ -55,7 +55,7 @@ class BatchDownloadResponse(BaseModel):
     results: List[DownloadResponse]
 
 class YoutubeDownloader:
-    def __init__(self, output_dir: str = 'downloads'):
+    def __init__(self, output_dir: str = 'temp'):
         self.output_dir = Path(output_dir)
         self.ensure_output_directory()
 
@@ -103,6 +103,7 @@ class YoutubeDownloader:
         ) -> DownloadResponse:
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
 
+        # TODO: Donwload format when no video exist, m4a
         ydl_opts = {
             'format': 'bestaudio/best',
             'writeautomaticsub': True,
@@ -126,9 +127,10 @@ class YoutubeDownloader:
 
                 ydl.download([url])
                 file_path = str(self.output_dir / f"{video_title}_{timestamp}")
+                logger.info(f"file_path: {file_path}")
 
                 # 上传到S3
-                s3_url = await self.upload_to_s3(file_path, user_id, project_id)
+                s3_url = await self.upload_to_s3(Path(file_path), user_id, project_id)
 
                 return DownloadResponse(
                     success=True,
