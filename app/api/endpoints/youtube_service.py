@@ -23,7 +23,7 @@ s3_uploader = S3Uploader()
 
 class DownloadRequest(BaseModel):
     url: HttpUrl
-    output_dir: str = "downloads"
+    output_dir: str = "temp"
     subtitle_langs: List[str] = ["en"]
     request_id: str
     user_id: str
@@ -122,7 +122,7 @@ class YoutubeDownloader:
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
-                video_title = info.get('title', 'video')
+                video_title = info.get('title', 'video').replace(' ','')
                 logger.info(f"Starting download for: {video_title}")
 
                 ydl.download([url])
