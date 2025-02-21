@@ -157,6 +157,7 @@ class YoutubeDownloader:
         self, 
         url: str, 
         subtitle_langs: List[str], 
+        request_id: str,
         user_id: str, 
         project_id: str, 
         timeout: int
@@ -168,6 +169,7 @@ class YoutubeDownloader:
                 self.download_and_upload(
                     url, 
                     subtitle_langs, 
+                    request_id,  
                     user_id, 
                     project_id
                 ),
@@ -208,6 +210,7 @@ async def download_video(request: DownloadRequest):
     return await downloader.download(
         str(request.url), 
         request.subtitle_langs,
+        request.request_id,
         request.user_id,
         request.project_id,
         request.timeout
@@ -225,6 +228,7 @@ async def batch_download_videos(request: BatchDownloadRequest):
         result = await downloader.download(
             str(url), 
             request.subtitle_langs,
+            request.request_id,
             request.user_id,
             request.project_id,
             request.timeout
