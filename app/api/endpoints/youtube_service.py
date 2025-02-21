@@ -115,6 +115,7 @@ class YoutubeDownloader:
             'quiet': False,
             'socket_timeout': 30,
             'nocheckcertificate': True,
+            'cookiefile': 'youtube_cookies.txt'
         }
 
         try:
