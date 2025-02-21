@@ -192,6 +192,9 @@ class YoutubeDownloader:
             return DownloadResponse(
                 success=False,
                 message="Operation failed",
+                request_id=request_id,
+                user_id=user_id, 
+                project_id=project_id,
                 error=error_msg,
                 status="error"
             )
